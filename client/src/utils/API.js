@@ -28,7 +28,7 @@ export default {
       return fetch(`http://localhost:3001/api/eggs/${id}`).then(res => res.json());
   },
   updateCount: function(id, countData){
-      return fetch("/api/habits/" + id, {
+      return fetch(`http://localhost:3001/api/habits/${id}`, {
           method: 'PUT',
           headers:{
             'Content-Type': 'application/json'

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Image, ScrollView } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
 import Button from './Button';
 import Header from './Header';
+import Card from './Card';
+import CardSection from './CardSection';
 
 import API from './../utils/API';
 
@@ -62,21 +64,38 @@ class Add extends Component {
         
 
         return(
-            <View style={{flex: 1}}>
+            <ScrollView>
                 <Header headerText={'Add a Habit'} />
-                <Text>THis is teh add page</Text>
-                <FormLabel>Habit Name</FormLabel>
-                <FormInput onChangeText={text => this.setState({ name: text })} name='name' value={this.state.name}/>
-                <FormLabel>Number of Times/Day</FormLabel>
-                <FormInput onChangeText={text => this.setState({ iteration: text })} name='iteration' value={this.state.iteration}/>
-                <FormLabel>Notes</FormLabel>
-                <FormInput onChangeText={text => this.setState({ description: text })} name='description' value={this.state.description}/>
-                <Button onPress={() => this.handleSubmit()}>
-                    Add Habit
-                </Button>
-            </View>
+
+                <Card>
+                    {/* <View style={{flex: 1}}> */}
+                    <CardSection>
+                        <Image style={style.addImgStyle} source={{ uri: 'https://i.imgur.com/osFqr4D.png'}} />
+                    </CardSection>
+                        
+                        <FormLabel>Habit Name</FormLabel>
+                        <FormInput onChangeText={text => this.setState({ name: text })} name='name' value={this.state.name}/>
+                        <FormLabel>Number of Times/Day</FormLabel>
+                        <FormInput onChangeText={text => this.setState({ iteration: text })} name='iteration' value={this.state.iteration}/>
+                        <FormLabel>Notes</FormLabel>
+                        <FormInput onChangeText={text => this.setState({ description: text })} name='description' value={this.state.description}/>
+                        <View style={{flex: 1}}>
+                        <Button onPress={() => this.handleSubmit()}>
+                            Add Habit
+                        </Button>
+                        </View>
+                    {/* </View> */}
+                </Card>
+            </ScrollView>
         )
     }
 }
 
+const style = {
+    addImgStyle: {
+        height: 300,
+        flex: 1,
+        width: null
+    }
+}
 export default Add;

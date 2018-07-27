@@ -4,8 +4,9 @@ import EggList from './src/components/EggList';
 import HabitList from './src/components/HabitList';
 import { Tabs } from './config/router';
 const App = () => (
-   
-  <Tabs />
+  <View style={{flex: 1}}>
+    <Tabs />
+  </View>
     
 );
 

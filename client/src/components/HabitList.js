@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View, TouchableOpacity, Text, Image } from 'react-native';
 import API from './../utils/API';
 import HabitDetail from './HabitDetail';
 import Header from './Header';
+import Card from './Card';
+import CardSection from './CardSection';
 
 class HabitList extends Component {
     state = {
@@ -24,20 +26,111 @@ class HabitList extends Component {
         API.getHabits().then(resData => this.setState({ habits: resData }));
     }
     renderHabits() {
+        const { 
+            headerContentStyle, 
+            thumbnailStyle, 
+            thumbnailContainerStyle, 
+            titleStyle,
+            imageStyle,
+            addButtonStyle,
+            addTextStyle
+        } = style;
         return this.state.habits.map(habit => {
-            return <HabitDetail key={habit._id} habit={habit} />
+            // console.log(habit.count);
+            // return <HabitDetail key={habit._id} habit={habit} updateCount={() => this.updateCount()}/>
+            return(
+                <Card>
+                    <CardSection>
+                        <View style={thumbnailContainerStyle}>
+                        <TouchableOpacity style={addButtonStyle} onPress={() => this.updateCount(habit._id, habit.count, habit.iteration, habit.egg.hatching_number)}>
+                            <Text style={addTextStyle}>+</Text>
+                        </TouchableOpacity>
+                            {habit.count < habit.egg.hatching_number ?
+                                <Image style={thumbnailStyle} source={{ uri: habit.egg.start_img }} />
+                                :
+                                <Image style={thumbnailStyle} source={{ uri: habit.egg.hatch_img }} />
+                            }
+                        </View>
+                        <View style={headerContentStyle}>
+                            <Text style={titleStyle}>{habit.name}</Text>
+                            <Text>{habit.count}/{habit.iteration}</Text>
+                        </View>
+                        
+                    </CardSection>
+                </Card>
+            )
         })
+    }
+
+    updateCount(id, count, iteration, hatching_number){
+        console.log('UPDATING COUNT', id, count, iteration, hatching_number);
+        let updateCount = parseInt(count) + 1;
+        console.log(updateCount);
+        let isComplete = false;
+        let hatched = false;
+
+        if(updateCount === iteration) {
+            isComplete = true;
+        }
+
+        if(parseInt(hatching_number)-1 <= parseInt(count)){
+            hatched = true;
+        }
+
+        let countData = {
+            count: updateCount,
+            complete: isComplete,
+            'egg.is_hatched': hatched
+        }
+
+        console.log(countData);
+        API.updateCount(id, countData)
+            .then(res => this.loadHabits())
+            .catch(err => console.log(err));
     }
 
     render() {
         console.log(this.state);
+        
         return (
             <ScrollView>
                 <Header headerText={'Habit List'} />
                 {this.renderHabits()}
+                
             </ScrollView>
         )
     }
 }
-
+const style = {
+    headerContentStyle: {
+        flexDirection: 'column',
+        justifyContent: 'space-around'
+    },
+    thumbnailStyle: {
+        height: 50,
+        width: 50
+    },
+    thumbnailContainerStyle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
+        marginRight: 10
+    },
+    titleStyle: {
+        fontSize: 18
+    },
+    imageStyle: {
+        height: 300,
+        flex: 1,
+        width: null
+    },
+    addButtonStyle:{
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        elevation: 5
+    },
+    addTextStyle:{
+        fontSize: 30
+    }
+};
 export default HabitList;
