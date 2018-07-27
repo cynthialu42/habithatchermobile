@@ -5,6 +5,8 @@ import HabitDetail from './HabitDetail';
 import Header from './Header';
 import Card from './Card';
 import CardSection from './CardSection';
+import Swipeout from 'react-native-swipeout';
+
 
 class HabitList extends Component {
     state = {
@@ -35,29 +37,42 @@ class HabitList extends Component {
             addButtonStyle,
             addTextStyle
         } = style;
+
+        const swipeBtns = [{
+            text: 'Delete',
+            fontSize: 20,
+            backgroundColor: '#f44336',
+            underlayColor: 'rgba(0, 0, 0,0.6)',
+            onPress: () => console.log('Pressed Delete')
+        }]
+
         return this.state.habits.map(habit => {
             // console.log(habit.count);
             // return <HabitDetail key={habit._id} habit={habit} updateCount={() => this.updateCount()}/>
             return(
-                <Card>
-                    <CardSection>
-                        <View style={thumbnailContainerStyle}>
-                        <TouchableOpacity style={addButtonStyle} onPress={() => this.updateCount(habit._id, habit.count, habit.iteration, habit.egg.hatching_number)}>
-                            <Text style={addTextStyle}>+</Text>
-                        </TouchableOpacity>
-                            {habit.count < habit.egg.hatching_number ?
-                                <Image style={thumbnailStyle} source={{ uri: habit.egg.start_img }} />
-                                :
-                                <Image style={thumbnailStyle} source={{ uri: habit.egg.hatch_img }} />
-                            }
-                        </View>
-                        <View style={headerContentStyle}>
-                            <Text style={titleStyle}>{habit.name}</Text>
-                            <Text>{habit.count}/{habit.iteration}</Text>
-                        </View>
-                        
-                    </CardSection>
-                </Card>
+                <Swipeout right={swipeBtns}
+                    autoClose = {true}
+                    backgroundColor='transparent'>
+                    <Card key={habit._id}>
+                        <CardSection>
+                            <View style={thumbnailContainerStyle}>
+                            
+                                {habit.count < habit.egg.hatching_number ?
+                                    <Image style={thumbnailStyle} source={{ uri: habit.egg.start_img }} />
+                                    :
+                                    <Image style={thumbnailStyle} source={{ uri: habit.egg.hatch_img }} />
+                                }
+                            </View>
+                            <View style={headerContentStyle}>
+                                <Text style={titleStyle}>{habit.name}</Text>
+                                <Text>{habit.count}/{habit.iteration}</Text>
+                            </View>
+                            <TouchableOpacity style={addButtonStyle} onPress={() => this.updateCount(habit._id, habit.count, habit.iteration, habit.egg.hatching_number)}>
+                                <Text style={addTextStyle}>+</Text>
+                            </TouchableOpacity>
+                        </CardSection>
+                    </Card>
+                </Swipeout>
             )
         })
     }
@@ -104,7 +119,8 @@ class HabitList extends Component {
 const style = {
     headerContentStyle: {
         flexDirection: 'column',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        flex: 1
     },
     thumbnailStyle: {
         height: 50,
@@ -126,11 +142,13 @@ const style = {
     },
     addButtonStyle:{
         justifyContent: 'center',
-        alignItems: 'flex-start',
-        elevation: 5
+        alignItems: 'flex-end',
+        paddingLeft: 10,
+        paddingRight: 10
     },
     addTextStyle:{
-        fontSize: 30
+        fontSize: 30,
+        color: '#37a69a'
     }
 };
 export default HabitList;

@@ -18,18 +18,20 @@ const styles = {
         backgroundColor: '#fff',
         borderRadius: 5, 
         borderWidth: 1,
-        borderColor: '#007aff',
+        borderColor: '#f50057',
         marginLeft: 5, 
         marginRight: 5,
-        height: 30
+        height: 40,
+        marginTop: 10
     },
     textStyle: {
         alignSelf: 'center',
-        color: '#007aff',
+        color: '#f50057',
         fontWeight: '600',
         fontSize: 16,
         paddingTop: 10,
-        paddingBottom: 10
+        paddingBottom: 10,
+        justifyContent: 'center'
     }
 };
 export default Button;

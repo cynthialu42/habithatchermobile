@@ -93,9 +93,11 @@ class Add extends Component {
 
 const style = {
     addImgStyle: {
-        height: 300,
+        height: 270,
+        width: null,
         flex: 1,
-        width: null
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 }
 export default Add;
