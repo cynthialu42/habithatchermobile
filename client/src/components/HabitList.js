@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import API from './../utils/API';
 import HabitDetail from './HabitDetail';
+import Header from './Header';
 
 class HabitList extends Component {
     state = {
@@ -18,7 +19,7 @@ class HabitList extends Component {
     componentWillUnmount() {
         this.didFocusListener.remove();
     }
-    
+
     loadHabits = () => {
         API.getHabits().then(resData => this.setState({ habits: resData }));
     }
@@ -32,6 +33,7 @@ class HabitList extends Component {
         console.log(this.state);
         return (
             <ScrollView>
+                <Header headerText={'Habit List'} />
                 {this.renderHabits()}
             </ScrollView>
         )

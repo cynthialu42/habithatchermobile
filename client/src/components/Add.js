@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
 import Button from './Button';
+import Header from './Header';
 
 import API from './../utils/API';
 
@@ -22,7 +23,7 @@ class Add extends Component {
             () => {this.handleRandomEgg()},
           ); 
     }
-    
+
     componentWillUnmount() {
         this.didFocusListener.remove();
     }
@@ -61,7 +62,8 @@ class Add extends Component {
         
 
         return(
-            <View>
+            <View style={{flex: 1}}>
+                <Header headerText={'Add a Habit'} />
                 <Text>THis is teh add page</Text>
                 <FormLabel>Habit Name</FormLabel>
                 <FormInput onChangeText={text => this.setState({ name: text })} name='name' value={this.state.name}/>
