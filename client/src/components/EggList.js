@@ -8,10 +8,10 @@ class EggList extends Component {
         eggs: []
     }
     componentDidMount() {
-        // API.getEggs().then(resData => this.setState({ eggs: resData }));
-        fetch('http://localhost:3001/api/eggs')
-        .then(res => res.json())
-        .then(resData => this.setState({ eggs: resData }));
+        API.getEggs().then(resData => this.setState({ eggs: resData }));
+        // fetch('http://localhost:3001/api/eggs')
+        // .then(res => res.json())
+        // .then(resData => this.setState({ eggs: resData }));
     }
 
     renderEggs() {
