@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, Text } from 'react-native';
 import API from './../utils/API';
+import EggDetail from './EggDetail';
 
 class EggList extends Component {
     state = {
@@ -13,10 +14,17 @@ class EggList extends Component {
         .then(resData => this.setState({ eggs: resData }));
     }
 
+    renderEggs() {
+        return this.state.eggs.map(egg => {
+            return <EggDetail key={egg.egg_id} egg={egg} />
+        })
+    }
     render() {
         console.log(this.state);
         return (
-            <Text>Hey this is the egg page</Text>
+            <ScrollView>
+                {this.renderEggs()}
+            </ScrollView>
         )
     }
 }

@@ -13,7 +13,7 @@ app.use(routes);
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/habithatchernative");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/habithatcher");
 
 
 app.listen(PORT, () => {
