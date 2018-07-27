@@ -1,7 +1,11 @@
-/** @format */
+import React from 'react';
+import { AppRegistry, View, Text } from 'react-native';
+import EggList from './src/components/EggList';
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
+const App = () => (
+    <View style={{ flex: 1 }}>
+        <EggList />
+    </View>
+);
 
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent('client', () => App);
