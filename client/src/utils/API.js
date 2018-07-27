@@ -25,7 +25,7 @@ export default {
       return fetch("http://localhost:3001/api/eggs").then(res => res.json());
   }, 
   getEgg: function(id){
-      return fetch("http://localhost:3001/api/eggs" + id).then(res => res.json());
+      return fetch(`http://localhost:3001/api/eggs/${id}`).then(res => res.json());
   },
   updateCount: function(id, countData){
       return fetch("/api/habits/" + id, {
