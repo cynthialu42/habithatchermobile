@@ -9,9 +9,16 @@ class HabitList extends Component {
     }
 
     componentDidMount() {
-        this.loadHabits();
+        this.didFocusListener = this.props.navigation.addListener(
+            'didFocus',
+            () => {this.loadHabits()},
+          );
+        
     }
-
+    componentWillUnmount() {
+        this.didFocusListener.remove();
+    }
+    
     loadHabits = () => {
         API.getHabits().then(resData => this.setState({ habits: resData }));
     }
