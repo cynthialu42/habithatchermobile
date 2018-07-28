@@ -27,6 +27,10 @@ class HabitList extends Component {
     loadHabits = () => {
         API.getHabits().then(resData => this.setState({ habits: resData }));
     }
+    handleDelete = (id) => {
+        API.deleteHabit(id).then(res => this.loadHabits());
+    }
+
     renderHabits() {
         const { 
             headerContentStyle, 
@@ -38,17 +42,18 @@ class HabitList extends Component {
             addTextStyle
         } = style;
 
-        const swipeBtns = [{
-            text: 'Delete',
-            fontSize: 20,
-            backgroundColor: '#f44336',
-            underlayColor: 'rgba(0, 0, 0,0.6)',
-            onPress: () => console.log('Pressed Delete')
-        }]
+        
 
         return this.state.habits.map(habit => {
             // console.log(habit.count);
             // return <HabitDetail key={habit._id} habit={habit} updateCount={() => this.updateCount()}/>
+            const swipeBtns = [{
+                text: 'Delete',
+                fontSize: 20,
+                backgroundColor: '#f44336',
+                underlayColor: 'rgba(0, 0, 0,0.6)',
+                onPress: () => this.handleDelete(habit._id)
+            }]
             return(
                 <Swipeout right={swipeBtns}
                     autoClose = {true}

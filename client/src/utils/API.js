@@ -8,7 +8,7 @@ export default {
       return fetch("http://localhost:3001/api/habits" + id).then(res => res.json());
   },
   deleteHabit: function(id) {
-      return fetch("http://localhost:3001/api/habits" + id, {
+      return fetch(`http://localhost:3001/api/habits/${id}`, {
           method: 'DELETE'
       }).then(res => res.json());
   },
