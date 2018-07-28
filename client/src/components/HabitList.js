@@ -17,7 +17,7 @@ class HabitList extends Component {
         this.didFocusListener = this.props.navigation.addListener(
             'didFocus',
             () => {this.loadHabits()},
-          );
+        );
         
     }
     componentWillUnmount() {
@@ -39,7 +39,9 @@ class HabitList extends Component {
             titleStyle,
             imageStyle,
             addButtonStyle,
-            addTextStyle
+            addTextStyle,
+            addTextStyleDisabled,
+            titleStyleDisabled
         } = style;
 
         
@@ -68,13 +70,28 @@ class HabitList extends Component {
                                     <Image style={thumbnailStyle} source={{ uri: habit.egg.hatch_img }} />
                                 }
                             </View>
-                            <View style={headerContentStyle}>
-                                <Text style={titleStyle}>{habit.name}</Text>
-                                <Text>{habit.count}/{habit.iteration}</Text>
-                            </View>
-                            <TouchableOpacity style={addButtonStyle} onPress={() => this.updateCount(habit._id, habit.count, habit.iteration, habit.egg.hatching_number)}>
-                                <Text style={addTextStyle}>+</Text>
-                            </TouchableOpacity>
+                            {habit.count === habit.iteration ?
+                                <View style={headerContentStyle}>
+                                    <Text style={titleStyleDisabled}>{habit.name}</Text>
+                                    <Text style={{color: '#bfc5cc'}}>{habit.count}/{habit.iteration}</Text>
+                                </View>
+                                :
+                                <View style={headerContentStyle}>
+                                    <Text style={titleStyle}>{habit.name}</Text>
+                                    <Text>{habit.count}/{habit.iteration}</Text>
+                                </View>
+                            }
+                            
+                            {habit.count === habit.iteration ?
+                                <TouchableOpacity style={addButtonStyle} disabled={true} onPress={() => this.updateCount(habit._id, habit.count, habit.iteration, habit.egg.hatching_number)}>
+                                    <Text style={addTextStyleDisabled}>+</Text>
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity style={addButtonStyle} onPress={() => this.updateCount(habit._id, habit.count, habit.iteration, habit.egg.hatching_number)}>
+                                    <Text style={addTextStyle}>+</Text>
+                                </TouchableOpacity>
+                            }
+                            
                         </CardSection>
                     </Card>
                 </Swipeout>
@@ -140,6 +157,10 @@ const style = {
     titleStyle: {
         fontSize: 18
     },
+    titleStyleDisabled:{
+        fontSize: 18,
+        color: '#bfc5cc'
+    },
     imageStyle: {
         height: 300,
         flex: 1,
@@ -150,6 +171,10 @@ const style = {
         alignItems: 'flex-end',
         paddingLeft: 10,
         paddingRight: 10
+    },
+    addTextStyleDisabled: {
+        fontSize: 30,
+        color: '#bfc5cc'
     },
     addTextStyle:{
         fontSize: 30,
