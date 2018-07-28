@@ -161,11 +161,6 @@ const style = {
         fontSize: 18,
         color: '#bfc5cc'
     },
-    imageStyle: {
-        height: 300,
-        flex: 1,
-        width: null
-    },
     addButtonStyle:{
         justifyContent: 'center',
         alignItems: 'flex-end',
