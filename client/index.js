@@ -5,6 +5,7 @@ import HabitList from './src/components/HabitList';
 import { Tabs } from './config/router';
 const App = () => (
   <View style={{flex: 1}}>
+    {console.disableYellowBox = true}
     <Tabs />
   </View>
     
